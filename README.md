@@ -17,7 +17,28 @@ Una fábrica de componentes electrónicos requiere un programa que procese infor
 
 Después de realizar las operaciones, el sistema verifica el resultado de una suma para establecer el estado del procesamiento. Si el valor calculado es distinto de cero, se almacena el código 303, que identifica un proceso de producción registrado; si el resultado es cero, se almacena cero. El programa utiliza una posición específica de memoria para conservar este estado y permitir su posterior consulta.
 
----
+## Historial de versiones
+
+| Versión | Fecha | Descripción |
+|---------|-------|-------------|
+| v1.0 | 19/11/2026 | Documentación inicial: descripción, análisis, implementación en MIPS (`proyecto03.s`) y capturas en Mipsy Web. |
+| v1.1 | 26/11/2026 | Actualización de la documentación: formatos R, I y J, datapath y hazards del pipeline. |
+
+### v1.1 – Cambios (26/11/2026)
+
+**Agregado**
+- Identificación de instrucciones por formato: R (`add`, `sub`), I (`lw`, `sw`) y J (`j`), con campos, registros, operación y efecto sobre el estado del procesador (Tabla 2).
+- Descripción de los componentes del datapath: PC, memoria de instrucciones, banco de registros, ALU, memoria de datos, multiplexores y unidad de control.
+- Análisis de dependencias del pipeline de 5 etapas (Tabla 3), con 14 casos:
+  - Datos (RAW), incluido el load-use de `lw` → `add`.
+  - Nombre: WAR sobre `$t2` y WAW sobre `$t6`.
+  - Control: `beq` y `j`.
+
+**Corregido**
+- Fila 8 de hazards (`addi $t1` → `sw`): el forwarding del dato es EX→EX, con MEM/WB→MEM como alternativa según el diseño.
+- Columna "Operación requerida" renombrada a "Registros fuente / destino".
+- Título "Identificación…", párrafos vacíos y anchos de tabla.
+
 
 ### Referencias utilizadas
 
@@ -29,6 +50,6 @@ Después de realizar las operaciones, el sistema verifica el resultado de una su
 
 4. School of Computer Science and Engineering, University of New South Wales. (n.d.). *MIPS instruction set*. https://cgi.cse.unsw.edu.au/~cs1521/26T1/resources/mips-guide.html
 
-5. School of Computer Science and Engineering, University of New South Wales. (n.d.). *Mipsy Web*. https://cgi.cse.unsw.edu.au/~cs1521/mipsy/
+
 
 6. Tanenbaum, A. S., & Austin, T. (2012). *Structured computer organization* (6th ed.). Pearson.
